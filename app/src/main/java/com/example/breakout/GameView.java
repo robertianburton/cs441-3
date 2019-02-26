@@ -7,10 +7,15 @@ import android.view.SurfaceHolder;
 //private MainThread thread;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+    private MainThread thread;
+
     public GameView(Context context) {
         super(context);
 
         getHolder().addCallback(this);
+        thread = new MainThread(getHolder(), this);
+        setFocusable(true);
+
     }
 
     @Override
@@ -20,11 +25,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
+        thread.setRunning(true);
+        thread.start();
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        boolean retry = true; //used if you need to retry stopping the surface
+        while(retry) {
+            try {
+                thread.setRunning(false);
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            retry = false;
+        }
+    }
+
+    public void update() {
 
     }
 }
