@@ -29,7 +29,7 @@ public class MainThread extends Thread {
             } catch (Exception e) {} finally {
                 if(canvas != null) {
                     try {
-                        surfaceHolder.unlockCanvasAndPost();
+                        surfaceHolder.unlockCanvasAndPost(canvas);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
