@@ -11,4 +11,8 @@ public class MainActivity extends Activity {
         setContentView(new GameView(this));
         //getActionBar().hide();
     }
+
+    /*public void reset() {
+        setContentView(new GameView(this));
+    }*/
 }
